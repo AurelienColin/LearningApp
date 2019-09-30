@@ -1,33 +1,30 @@
 import os
 import sys
+import fire
+
 from Rignak_LearningApp.Canvas import Canvas
 from Rignak_LearningApp.Questions import Questions
 from Rignak_LearningApp.Question import Question
 from Rignak_LearningApp.leitner import get_leitner_json
 
 QUESTIONS_ROOT = 'input'
-MIN_INDEX = 1
-MAX_INDEX = 2 ** 20
 MAX_QUESTION_BY_SESSION = 75
 
 
-def parse_input(argvs):
-    filename = argvs[1] + '.txt'
-    if len(argvs) == 4:
-        min_index = int(argvs[2])
-        max_index = int(argvs[3])
-    else:
-        min_index = MIN_INDEX
-        max_index = MAX_INDEX
-    return filename, min_index, max_index
-
-
-def get_questions(filename,
-                  min_index=MIN_INDEX,
-                  max_index=MAX_INDEX,
+def get_questions(filename, min_index, max_index,
                   questions_root=QUESTIONS_ROOT,
                   max_question_by_session=MAX_QUESTION_BY_SESSION,
                   leitner_json=get_leitner_json()):
+    """
+
+    :param filename: name of the file containing the questions
+    :param min_index: index of the first question to ask
+    :param max_index: index of the last question to ask
+    :param questions_root: name of the folder containing the questions
+    :param max_question_by_session: max number of question to ask
+    :param leitner_json: json containing a leitner dictionnary
+    :return:
+    """
     with open(os.path.join(questions_root, filename), 'r', encoding='utf-16') as file:
         lines = file.readlines()
 
@@ -41,8 +38,7 @@ def get_questions(filename,
     return questions
 
 
-def loop(filename, min_index=MIN_INDEX, max_index=MAX_INDEX):
-    questions = get_questions(filename, min_index=min_index, max_index=max_index)
+def loop(questions):
     print(f'You have {len(questions)} questions')
 
     frame = Canvas(questions)
@@ -64,6 +60,5 @@ def loop(filename, min_index=MIN_INDEX, max_index=MAX_INDEX):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) in [2, 4]:
-        filename, min_index, max_index = parse_input(sys.argv)
-        loop(filename, min_index=min_index, max_index=max_index)
+    questions = fire.Fire(get_questions)
+    loop(questions)
