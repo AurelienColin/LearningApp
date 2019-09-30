@@ -1,8 +1,18 @@
 # Learning Application
 
+## Requirements
+
+- os
+- sys
+- fire
+- random
+- tkinter
+
+
 ## How to use
 
 ````
+> python LearningApplication.py --help
 NAME
     LearningApplication.py
     
