@@ -8,7 +8,7 @@ from Rignak_LearningApp.Question import Question
 from Rignak_LearningApp.leitner import get_leitner_json
 
 QUESTIONS_ROOT = 'input'
-MAX_QUESTION_BY_SESSION = 75
+MAX_QUESTION_BY_SESSION = 100
 
 
 def get_questions(filename, min_index, max_index,
@@ -25,11 +25,14 @@ def get_questions(filename, min_index, max_index,
     :param leitner_json: json containing a leitner dictionnary
     :return:
     """
+    if not os.path.splitext(filename)[1]:
+        filename = f"{filename}.txt"
     with open(os.path.join(questions_root, filename), 'r', encoding='utf-16') as file:
         lines = file.readlines()
 
     questions = Questions([], leitner_json=leitner_json)
     for line in lines[min_index: max_index]:
+        print(line)
         question, answer, information = line.split('\t')
         question = Question(question, answer, information[:-1])
         questions.append(question)

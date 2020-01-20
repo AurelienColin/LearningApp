@@ -1,7 +1,8 @@
 import json
+import sys
+import os 
 
-LEITNER_FILENAME = 'leitner.json'
-
+LEITNER_FILENAME = os.path.join('leitner', f'leitner_{os.path.splitext(sys.argv[1])[0]}.json')
 
 def get_leitner_json(leitner_filename=LEITNER_FILENAME):
     with open(leitner_filename, 'r', encoding='utf-16') as leitner_file:

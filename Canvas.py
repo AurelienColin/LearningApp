@@ -10,7 +10,6 @@ TEXT_WIDTH = WIDTH // 2
 TEXT_HEIGHT = HEIGHT // 5
 FONT = 'Arial 25'
 
-
 class Canvas(tk.Tk):
     def __init__(self, questions, width=WIDTH, height=HEIGHT, button_width=BUTTON_WIDTH, entry_width=ENTRY_WIDTH,
                  font=FONT, text_width=TEXT_WIDTH, text_height=TEXT_HEIGHT):
