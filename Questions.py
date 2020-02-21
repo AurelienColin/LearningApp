@@ -34,7 +34,7 @@ class Questions(list):
             if results[str(question)]['failure']:
                 self.leitner_json[str(question)] = 0
             else:
-                self.leitner_json[str(question)] += 1
+                self.leitner_json[str(question)] = self.leitner_json.get(str(question), -1) + 1
         return self.leitner_json
 
     def random_choice(self, result):
