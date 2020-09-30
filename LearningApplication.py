@@ -8,7 +8,7 @@ from Rignak_LearningApp.Question import Question
 from Rignak_LearningApp.leitner import get_leitner_json
 
 QUESTIONS_ROOT = 'input'
-MAX_QUESTION_BY_SESSION = 100
+MAX_QUESTION_BY_SESSION = 75
 
 
 def get_questions(filename, min_index, max_index,
