@@ -1,17 +1,27 @@
 import random
 
-LEITNER_FILENAME = 'leitner.json'
+from rignak.src.init import assert_argument_types
+from learning_with_leitner.question import Question
 
 
 class Questions(list):
-    def __init__(self, question_list, leitner_json):
+    @assert_argument_types
+    def __init__(
+            self: "Questions",
+            question_list: list,
+            leitner_json: dict
+    ) -> None:
         super().__init__()
 
         for question in question_list:
             self.append(question)
         self.leitner_json = leitner_json
 
-    def downsample(self, max_number):
+    @assert_argument_types
+    def downsample(
+            self: "Questions",
+            max_number: int
+    ) -> "Questions":
         if max_number >= len(self):
             return self
 
@@ -29,7 +39,11 @@ class Questions(list):
                 kept_questions.append(self.pop(i))
         return kept_questions
 
-    def export(self, results):
+    @assert_argument_types
+    def export(
+            self: "Questions",
+            results: dict
+    ) -> dict:
         for question in self:
             if results[str(question)]['failure']:
                 self.leitner_json[str(question)] = 0
@@ -37,14 +51,25 @@ class Questions(list):
                 self.leitner_json[str(question)] = self.leitner_json.get(str(question), -1) + 1
         return self.leitner_json
 
-    def random_choice(self, result):
+    @assert_argument_types
+    def random_choice(
+            self: "Questions",
+            result: dict
+    ) -> Question:
         sublist = [question
                    for question in self
                    if result[str(question)]['success'] < question.required_success]
         question = random.choice(sublist)
         return question
 
-    def remaining_length(self, result):
-        return len([question
-                    for question in self
-                    if result[str(question)]['success'] < question.required_success])
+    @assert_argument_types
+    def remaining_length(
+            self: "Questions",
+            result: dict
+    ) -> int:
+        length = len(
+            [question
+             for question in self
+             if result[str(question)]['success'] < question.required_success]
+        )
+        return length

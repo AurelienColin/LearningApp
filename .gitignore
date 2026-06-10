@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.idea/
+.old/
+local_config.py
+*.tmp
+*.deb
+*.bat
+*.sh
+*.xlsx
+input/kanjis - Copie.txt
+input/kanjis.txt.old
+leitner/
+results.xlsx
